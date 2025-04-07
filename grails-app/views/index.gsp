@@ -13,7 +13,7 @@ body {
 .f1-logo {
     position: absolute;
     top: 20px;
-    left: 30px;
+    right: 30px;
     width: 80px;
 }
 
@@ -53,16 +53,23 @@ p.subtitle {
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.4);
     transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
 .team-logo-box:hover {
     transform: scale(1.05);
+    background-color: #5a6268;
 }
 
 .team-logo {
     max-width: 70px;
     max-height: 70px;
     object-fit: contain;
+}
+
+.team-link {
+    text-decoration: none;
+    color: inherit;
 }
 </style>
 
@@ -72,15 +79,29 @@ p.subtitle {
 
     <!-- Contenido principal -->
     <div class="container">
-        <h1>Fórmula 1 - Temporada 2023</h1>
-        <p class="subtitle"> </p>
+        <h1>Fórmula 1</h1>
+        <p class="subtitle">Selecciona un equipo para ver más información</p>
 
         <div class="teams-grid">
-            <g:set var="teamLogos" value="${['redbull', 'mercedes', 'ferrari', 'mclaren', 'astonmartin', 'alpine', 'alphatauri', 'alfaromeo', 'haas', 'williams']}"/>
-            <g:each in="${teamLogos}" var="team">
-                <div class="team-logo-box">
-                    <img src="${assetPath(src: 'teams/' + team + '.png')}" alt="${team}" class="team-logo" />
-                </div>
+            <g:set var="teams" value="${[
+                    [id: 'redbull', name: 'Red Bull Racing'],
+                    [id: 'mercedes', name: 'Mercedes-AMG Petronas'],
+                    [id: 'ferrari', name: 'Scuderia Ferrari'],
+                    [id: 'mclaren', name: 'McLaren F1 Team'],
+                    [id: 'astonmartin', name: 'Aston Martin Aramco'],
+                    [id: 'alpine', name: 'Alpine F1 Team'],
+                    [id: 'rb', name: 'Racing Bulls'],
+                    [id: 'sauber', name: 'Stake Sauber F1 Team'],
+                    [id: 'haas', name: 'Haas F1 Team'],
+                    [id: 'williams', name: 'Williams Racing']
+            ]}"/>
+
+            <g:each in="${teams}" var="team">
+                <a href="${createLink(controller: 'team', action: 'show', id: team.id)}" class="team-link">
+                    <div class="team-logo-box" title="${team.name}">
+                        <img src="${assetPath(src: 'teams/' + team.id + '.png')}" alt="${team.name}" class="team-logo" />
+                    </div>
+                </a>
             </g:each>
         </div>
     </div>

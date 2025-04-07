@@ -1,54 +1,116 @@
-<!-- Tailwind CDN -->
-
-
-<!doctype html>
-<html lang="en" class="no-js">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title><g:layoutTitle default="Grails"/></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <!-- ✅ Tailwind CSS desde CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <title><g:layoutTitle default="F1 App"/></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
     <g:layoutHead/>
-</head>
 
-<body class="bg-black text-white font-sans">
+    <style>
+    body {
+        background-color: #000;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav {
+        background-color: #491217;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-container img {
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .logo-container span {
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-links li {
+        color: white;
+        font-size: 14px;
+    }
+
+    main {
+        min-height: 80vh;
+        padding: 40px 20px;
+    }
+
+    footer {
+        background-color: #111;
+        color: #aaa;
+        font-size: 14px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    #spinner {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        font-size: 18px;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+    }
+    </style>
+</head>
+<body>
 
 <!-- NAVBAR -->
-<nav class="bg-red-600 shadow-md">
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="/" class="flex items-center space-x-2">
-            <img src="${assetPath(src: 'f1-logo.png')}" alt="F1 Logo" class="h-8"/>
-            <span class="text-white font-bold text-xl">F1 2023</span>
-        </a>
-        <ul class="flex space-x-6 text-sm text-white">
-            <g:pageProperty name="page.nav"/>
-        </ul>
+<nav>
+    <div class="logo-container">
+        <img src="${assetPath(src: 'f1-logo.png')}" alt="F1 Logo">
+        <span> </span>
     </div>
+    <ul class="nav-links">
+        <g:pageProperty name="page.nav"/>
+    </ul>
 </nav>
 
 <!-- MAIN CONTENT -->
-<main class="min-h-screen py-10">
+<main>
     <g:layoutBody/>
 </main>
 
 <!-- FOOTER -->
-<footer class="bg-gray-900 text-gray-400 text-sm py-6">
-    <div class="container mx-auto px-4 text-center">
-        <p>&copy; ${new Date().format('yyyy')} F1 App by Oriol. Todos los derechos reservados.</p>
-        <p class="mt-2">Datos obtenidos de la API oficial de Fórmula 1 (o fuente correspondiente)</p>
-    </div>
+<footer>
+    <p>&copy; <g:formatDate date="${new Date()}" format="yyyy" />F1 App by Oriol. Todos los derechos reservados.</p>
+    <p>Datos obtenidos de la API oficial de Fórmula 1 (o fuente correspondiente)</p>
 </footer>
 
-<div id="spinner" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="text-white text-lg">Cargando...</div>
+<!-- Spinner -->
+<div id="spinner">
+    <div>Cargando...</div>
 </div>
 
 <asset:javascript src="application.js"/>
 
 </body>
 </html>
+
