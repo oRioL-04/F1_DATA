@@ -1,78 +1,87 @@
-<!doctype html>
-<html>
-<head>
-    <meta name="layout" content="main"/>
-    <title>Welcome to Grails</title>
-</head>
-<body>
-<content tag="nav">
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Application Status <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <li class="dropdown-item"><a href="#">Environment: ${grails.util.Environment.current.name}</a></li>
-            <li class="dropdown-item"><a href="#">App version:
-                <g:meta name="info.app.version"/></a>
-            </li>
-            <li role="separator" class="dropdown-divider"></li>
-            <li class="dropdown-item"><a href="#">Grails version:
-                <g:meta name="info.app.grailsVersion"/></a>
-            </li>
-            <li class="dropdown-item"><a href="#">Groovy version: ${GroovySystem.getVersion()}</a></li>
-            <li class="dropdown-item"><a href="#">JVM version: ${System.getProperty('java.version')}</a></li>
-            <li role="separator" class="dropdown-divider"></li>
-            <li class="dropdown-item"><a href="#">Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</a></li>
-        </ul>
-    </li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Artefacts <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <li class="dropdown-item"><a href="#">Controllers: ${grailsApplication.controllerClasses.size()}</a></li>
-            <li class="dropdown-item"><a href="#">Domains: ${grailsApplication.domainClasses.size()}</a></li>
-            <li class="dropdown-item"><a href="#">Services: ${grailsApplication.serviceClasses.size()}</a></li>
-            <li class="dropdown-item"><a href="#">Tag Libraries: ${grailsApplication.tagLibClasses.size()}</a></li>
-        </ul>
-    </li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Installed Plugins <span class="caret"></span></a>
-        <ul class="dropdown-menu dropdown-menu-right">
-            <g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-                <li class="dropdown-item"><a href="#">${plugin.name} - ${plugin.version}</a></li>
-            </g:each>
-        </ul>
-    </li>
-</content>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page layout="main" %>
 
-<div class="svg" role="presentation">
-    <div class="grails-logo-container">
-        <asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>
-    </div>
-</div>
+<style>
+body {
+    background-color: #000000;
+    color: #FFFFFF;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
-<div id="content" role="main">
+.f1-logo {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    width: 80px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 20px 40px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+p.subtitle {
+    color: #aaa;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.teams-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    justify-items: center;
+}
+
+.team-logo-box {
+    background-color: #495057;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+
+.team-logo-box:hover {
+    transform: scale(1.05);
+}
+
+.team-logo {
+    max-width: 70px;
+    max-height: 70px;
+    object-fit: contain;
+}
+</style>
+
+<div>
+    <!-- Logo F1 -->
+    <img src="${assetPath(src: 'f1-logo.png')}" alt="F1 Logo" class="f1-logo" />
+
+    <!-- Contenido principal -->
     <div class="container">
-        <section class="row colset-2-its">
-            <h1>Welcome to Grails</h1>
+        <h1>Fórmula 1 - Temporada 2023</h1>
+        <p class="subtitle"> </p>
 
-            <p>
-                Congratulations, you have successfully started your first Grails application! At the moment
-                this is the default page, feel free to modify it to either redirect to a controller or display
-                whatever content you may choose. Below is a list of controllers that are currently deployed in
-                this application, click on each to execute its default action:
-            </p>
-
-            <div id="controllers" role="navigation">
-                <h2>Available Controllers:</h2>
-                <ul>
-                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-                        <li class="controller">
-                            <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
-                        </li>
-                    </g:each>
-                </ul>
-            </div>
-        </section>
+        <div class="teams-grid">
+            <g:set var="teamLogos" value="${['redbull', 'mercedes', 'ferrari', 'mclaren', 'astonmartin', 'alpine', 'alphatauri', 'alfaromeo', 'haas', 'williams']}"/>
+            <g:each in="${teamLogos}" var="team">
+                <div class="team-logo-box">
+                    <img src="${assetPath(src: 'teams/' + team + '.png')}" alt="${team}" class="team-logo" />
+                </div>
+            </g:each>
+        </div>
     </div>
 </div>
-
-</body>
-</html>

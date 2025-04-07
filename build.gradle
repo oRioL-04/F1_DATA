@@ -47,9 +47,13 @@ dependencies {
     implementation "org.grails:grails-plugin-i18n"
     implementation "org.grails:grails-plugin-interceptors"
     implementation "org.grails:grails-plugin-rest"
+
+
+
     implementation "org.grails:grails-plugin-services"
     implementation "org.grails:grails-plugin-url-mappings"
     implementation "org.grails:grails-web-boot"
+    implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.grails.plugins:gsp"
     implementation "org.grails.plugins:mongodb"
     implementation "org.grails.plugins:scaffolding"
