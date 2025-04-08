@@ -48,7 +48,38 @@ grails:
       - text/xml
       - application/xml
   mongodb:
-    url: mongodb://${MONGO_HOST:localhost}:${MONGO_PORT:27017}/foo
+    uri: "mongodb+srv://atlas-sample-dataset-load-67f549479a6e87041dae0a9e:csierra2210@cluster0.lxup28u.mongodb.net/miapp?retryWrites=true&w=majority&appName=Cluster0"
+  plugin:
+    springsecurity:
+      userLookup:
+        userDomainClassName: com.example.Usuario
+        usernamePropertyName: username
+        passwordPropertyName: password
+      authority:
+        className: com.example.Rol
+      controllerAnnotations:
+        staticRules:
+          - pattern: '/'
+            access: [ 'permitAll' ]
+          - pattern: '/index'
+            access: [ 'permitAll' ]
+          - pattern: '/index.gsp'
+            access: [ 'permitAll' ]
+          - pattern: '/assets/**'
+            access: [ 'permitAll' ]
+          - pattern: '/**/js/**'
+            access: [ 'permitAll' ]
+          - pattern: '/**/css/**'
+            access: [ 'permitAll' ]
+          - pattern: '/**/images/**'
+            access: [ 'permitAll' ]
+          - pattern: '/favicon.ico'
+            access: [ 'permitAll' ]
+          - pattern: '/usuario/register'
+            access: [ 'permitAll' ]
+          - pattern: '/usuario/registrar'
+            access: [ 'permitAll' ]
+
   codegen:
     defaultPackage: com.example
   profile: web

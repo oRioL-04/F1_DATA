@@ -39,7 +39,6 @@
 <!-- FOOTER -->
 <footer class="bg-gray-900 text-gray-400 text-sm py-6">
     <div class="container mx-auto px-4 text-center">
-        <p>&copy; ${new Date().format('yyyy')} F1 App by Oriol. Todos los derechos reservados.</p>
         <p class="mt-2">Datos obtenidos de la API oficial de Fórmula 1 (o fuente correspondiente)</p>
     </div>
 </footer>
