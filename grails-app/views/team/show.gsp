@@ -77,7 +77,7 @@
         width: 200px;
         height: 200px;
         object-fit: cover;
-        border-radius: 50%;
+        border-radius: 15%;
         border: 3px solid #e10600;
     }
     .driver-name {
@@ -91,9 +91,16 @@
     <g:if test="${team}">
         <div class="team-header">
             <div class="team-logo-container">
-                <img src="${assetPath(src: 'teams/' + teamId + '.png')}"
-                     alt="${team.name}" class="team-logo"/>
+                <a href="${teamLinks[teamId]}" target="_blank">
+                    <img src="${assetPath(src: 'teams/' + teamId + '.png')}" alt="${team.name}" class="team-logo"/>
+                </a>
+
+
+
+
+
             </div>
+
             <div class="team-info">
                 <h1>${team.name}</h1>
                 <p><strong>Base:</strong> ${team.base}</p>

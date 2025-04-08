@@ -17,7 +17,7 @@
     }
 
     nav {
-        background-color: #491217;
+        background-color: #faaf02;
         box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         padding: 10px 20px;
         display: flex;
@@ -82,16 +82,22 @@
 </head>
 <body>
 
+
 <!-- NAVBAR -->
 <nav>
     <div class="logo-container">
-        <img src="${assetPath(src: 'f1-logo.png')}" alt="F1 Logo">
-        <span> </span>
+        <a href="${request.contextPath}/">
+            <img src="${assetPath(src: 'f1-logo.png')}" alt="F1 Logo">
+        </a>
+        <span></span>
     </div>
     <ul class="nav-links">
         <g:pageProperty name="page.nav"/>
     </ul>
+
 </nav>
+
+
 
 <!-- MAIN CONTENT -->
 <main>
