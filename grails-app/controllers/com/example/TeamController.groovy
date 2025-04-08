@@ -2,6 +2,23 @@ package com.example
 
 class TeamController {
 
+    def teamLinks = [
+            'redbull': 'https://www.redbullracing.com',
+            'ferrari': 'https://www.ferrari.com',
+            'mercedes': 'https://www.mercedesamgf1.com',
+            'mclaren': 'https://www.mclaren.com',
+            'astonmartin': 'https://www.astonmartinf1.com',
+            'alpine': 'https://www.alpinecars.com',
+            'williams': 'https://www.williamsf1.com',
+            'haas': 'https://www.haasf1team.com',
+            'rb': 'https://www.visacashapprb.com/int-en',
+            'sauber': 'https://www.sauber-group.com/'
+    ]
+
+
+
+
+
     def show(String id) {
         def teams = [
                 'redbull': [
@@ -117,12 +134,13 @@ class TeamController {
         ]
 
         def team = teams[id]
+        def teamLink = teamLinks[id]
 
         if (!team) {
             response.sendError(404)
             return
         }
 
-        [team: team, teamId: id]
+        render(view: "show", model: [team: team, teamId: id, teamLink: teamLink, teamLinks: teamLinks])
     }
 }
