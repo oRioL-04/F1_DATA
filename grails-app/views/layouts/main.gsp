@@ -47,11 +47,52 @@
         list-style: none;
         margin: 0;
         padding: 0;
+        position: relative;
     }
 
     .nav-links li {
         color: white;
         font-size: 14px;
+        position: relative;
+    }
+
+    .dropdown {
+        cursor: pointer;
+    }
+
+    .dropdown-icon {
+        font-size: 24px;
+        color: #000;
+        user-select: none;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background-color: #222;
+        padding: 10px 0;
+        list-style: none;
+        margin: 0;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        z-index: 1000;
+        min-width: 160px;
+    }
+
+    .dropdown-content li {
+        padding: 8px 20px;
+        white-space: nowrap;
+    }
+
+    .dropdown-content li a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .dropdown-content li:hover {
+        background-color: #333;
     }
 
     main {
@@ -82,7 +123,6 @@
 </head>
 <body>
 
-
 <!-- NAVBAR -->
 <nav>
     <div class="logo-container">
@@ -93,11 +133,16 @@
     </div>
     <ul class="nav-links">
         <g:pageProperty name="page.nav"/>
+        <li class="dropdown">
+            <span class="dropdown-icon" onclick="toggleDropdown()">☰</span>
+            <ul class="dropdown-content" id="dropdownMenu">
+                <li><a href="#">Perfil</a></li>
+                <li><a href="RaceResults/RaceResults">Race Results</a></li>
+                <li><a href="/login/auth">Cerrar sesión</a></li>
+            </ul>
+        </li>
     </ul>
-
 </nav>
-
-
 
 <!-- MAIN CONTENT -->
 <main>
@@ -106,7 +151,7 @@
 
 <!-- FOOTER -->
 <footer>
-    <p>&copy; <g:formatDate date="${new Date()}" format="yyyy" />F1 App by Oriol. Todos los derechos reservados.</p>
+    <p>&copy; <g:formatDate date="${new Date()}" format="yyyy" /> F1 App by Spartanos. Todos los derechos reservados.</p>
     <p>Datos obtenidos de la API oficial de Fórmula 1 (o fuente correspondiente)</p>
 </footer>
 
@@ -117,6 +162,19 @@
 
 <asset:javascript src="application.js"/>
 
+<script>
+    function toggleDropdown() {
+        const menu = document.getElementById("dropdownMenu");
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+    document.addEventListener("click", function(event) {
+        const dropdown = document.querySelector(".dropdown");
+        if (!dropdown.contains(event.target)) {
+            document.getElementById("dropdownMenu").style.display = "none";
+        }
+    });
+</script>
+
 </body>
 </html>
-

@@ -1,3 +1,7 @@
-// Place your Spring DSL code here
+package spring
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+
 beans = {
+    passwordEncoder(BCryptPasswordEncoder)
 }
