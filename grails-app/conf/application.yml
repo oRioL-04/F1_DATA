@@ -87,6 +87,8 @@ grails:
             access: [ 'ROLE_USER' ]
           - pattern: '/radio/results'
             access: [ 'ROLE_USER' ]
+          - pattern: '/favicon.ico'
+            access: [ 'ROLE_USER' ]
           - pattern: '/'
             access: [ 'permitAll' ]
           - pattern: '/login/**'

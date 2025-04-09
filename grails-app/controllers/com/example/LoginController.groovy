@@ -21,18 +21,19 @@ class LoginController {
         def username = params.username
         def password = params.password
 
-        // Buscar el usuario por su nombre de usuario
         def usuario = Usuario.findByUsername(username)
+        def passwordEncoder = new BCryptPasswordEncoder()
 
-        if (usuario && springSecurityService.encodePassword(password) == usuario.password) {
-            // Autenticación exitosa
-            session.user = usuario  // Guardar el usuario en la sesión
-            redirect(controller: "home", action: "index")  // Redirigir a la página de inicio
+        if (usuario && passwordEncoder.matches(password, usuario.password)) {
+            session.user = usuario
+            redirect(controller: "home", action: "index") // REDIRECCIÓN CLARA
         } else {
             flash.message = "Lo siento, no hemos encontrado ningún usuario con ese nombre y contraseña."
-            redirect(action: "auth")  // Redirigir al formulario de login
+            redirect(action: "auth")
         }
     }
+
+
 
     def registrar() {
         // Validar que los parámetros están presentes

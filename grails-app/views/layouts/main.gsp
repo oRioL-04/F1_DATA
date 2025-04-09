@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title><g:layoutTitle default="F1 App"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
     <g:layoutHead/>
 
     <style>
