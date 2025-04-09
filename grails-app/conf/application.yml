@@ -79,7 +79,13 @@ grails:
             access: [ 'ROLE_USER' ]
           - pattern: '/team/show'
             access: [ 'ROLE_USER' ]
-          - pattern: '/RaceResults/RaceResults'
+          - pattern: '/raceresults/raceresults'
+            access: [ 'ROLE_USER' ]
+          - pattern: '/radio/index'
+            access: [ 'ROLE_USER' ]
+          - pattern: '/radio/**'
+            access: [ 'ROLE_USER' ]
+          - pattern: '/radio/results'
             access: [ 'ROLE_USER' ]
           - pattern: '/'
             access: [ 'permitAll' ]
