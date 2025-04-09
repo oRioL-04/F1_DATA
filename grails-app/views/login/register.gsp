@@ -118,7 +118,7 @@ button[type="submit"]:hover {
         </div>
 
 
-        <button type="submit">Tornar a inici de sessió</button>
+        <button type="submit">Registrar</button>
         <div class="login">
             <p> </p>
             <a href="/login/auth">Inicia sessió</a>

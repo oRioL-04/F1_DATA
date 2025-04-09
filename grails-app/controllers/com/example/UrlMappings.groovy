@@ -9,6 +9,7 @@ class UrlMappings {
                 // apply constraints here
             }
         }
+        "/radios"(controller: "radio", action: "index")
 
         "/"(controller: 'home', action: 'index')
         "500"(view:'/error')

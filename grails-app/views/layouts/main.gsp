@@ -136,7 +136,7 @@
         <li class="dropdown">
             <span class="dropdown-icon" onclick="toggleDropdown()">☰</span>
             <ul class="dropdown-content" id="dropdownMenu">
-                <li><a href="#">Perfil</a></li>
+                <li><a href="radio/index">Radios</a></li>
                 <li><a href="RaceResults/RaceResults">Race Results</a></li>
                 <li><a href="/login/auth">Cerrar sesión</a></li>
             </ul>
