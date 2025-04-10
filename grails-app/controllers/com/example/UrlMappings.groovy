@@ -10,6 +10,7 @@ class UrlMappings {
             }
         }
         "/radios"(controller: "radio", action: "index")
+        "/race-results"(controller: "raceresults", action: "index")
         "/favicon.ico"(controller: 'home', action: 'index')
         "/"(controller: 'home', action: 'index')
         "500"(view:'/error')
