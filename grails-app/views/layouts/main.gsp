@@ -139,7 +139,7 @@
             <span class="dropdown-icon" onclick="toggleDropdown()">☰</span>
             <ul class="dropdown-content" id="dropdownMenu">
                 <li><a href="radio/index">Radios</a></li>
-                <li><a href="RaceResults/RaceResults">Race Results</a></li>
+                <li><a href="race-results">Race Results</a></li>
                 <li><a href="/calendarioF1/index">Historial de Calendarios</a></li>
                 <li><a href="/login/auth">Cerrar sesión</a></li>
 

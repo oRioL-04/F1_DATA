@@ -67,7 +67,7 @@ grails:
         passwordPropertyName: password
       authority:
         className: com.example.Rol
-      userLookup.authorityJoinClassName: null  # ✅ No usar UsuarioRol con MongoDB
+      userLookup.authorityJoinClassName: null  #No usar UsuarioRol con MongoDB
 
       controllerAnnotations:
         staticRules:
@@ -79,7 +79,7 @@ grails:
             access: [ 'ROLE_USER' ]
           - pattern: '/team/show'
             access: [ 'ROLE_USER' ]
-          - pattern: '/raceresults/raceresults'
+          - pattern: '/raceresults/**'
             access: [ 'ROLE_USER' ]
           - pattern: '/radio/index'
             access: [ 'ROLE_USER' ]
