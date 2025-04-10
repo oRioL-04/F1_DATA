@@ -97,6 +97,10 @@ grails:
             access: [ 'ROLE_USER' ]
           - pattern: '/'
             access: [ 'permitAll' ]
+          - pattern: '/stint/**'
+            access: [ 'ROLE_USER' ]
+          - pattern: '/stint/index'
+            access: [ 'ROLE_USER' ]
           - pattern: '/login/**'
             access: [ 'permitAll' ]
           - pattern: '/logout/**'
