@@ -1,13 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: oriol
-  Date: 9/4/25
-  Time: 11:40
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+
 <html>
 <head>
-    <title>Radios disponibles</title>
+    <title>Resultados de la búsqueda</title>
     <meta name="layout" content="main"/>
     <style>
     body {
@@ -37,12 +32,9 @@
         list-style-type: none;
     }
 
+
     li {
-        background-color: #222;
-        margin-bottom: 1.5rem;
-        padding: 1rem;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        margin-bottom: 2rem; /* más espacio entre audios */
     }
 
     li strong {
@@ -62,30 +54,52 @@
         color: #ccc;
         font-size: 1.1rem;
     }
+
+    .back-button {
+        display: block;
+        width: fit-content;
+        margin: 3rem auto 0;
+        padding: 0.75rem 2rem;
+        background-color: #e10600;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+        background-color: #b00500;
+    }
     </style>
 </head>
 <body>
 
 <div class="radios-container">
-    <h2>Radios disponibles</h2>
+    <h2>Radios -- ${meetingOfficialName} </h2>
+
+
+
+
 
     <g:if test="${radios}">
         <g:if test="${radios.size() > 0}">
             <ul>
                 <g:each in="${radios}" var="radio" status="i">
                     <li>
-                        <strong>${i + 1}. Audio – ${radio.grand_prix_name}</strong>
+                        <strong>${i + 1}. Audio – ${radio.grand_prix_name} (${radio.session_name})  </strong>
                         <audio controls src="${radio.recording_url}" type="audio/mpeg"></audio>
                     </li>
                 </g:each>
             </ul>
         </g:if>
-        <g:if test="${radios.size() == 0}">
+        <g:else>
             <p>No se encontraron radios para esa combinación.</p>
-        </g:if>
+        </g:else>
     </g:if>
-</div>
 
+    <a href="/radio/index" class="back-button">← Volver a la búsqueda</a>
+</div>
 </body>
 </html>
-

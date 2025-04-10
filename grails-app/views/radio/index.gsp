@@ -86,7 +86,7 @@
         <select name="sessionKey" id="session">
             <g:each in="${sessions}" var="session">
                 <option value="${session.session_key}">
-                    ${session.session_name} - ${session.meeting_name ?: 'Desconocido'}
+                    ${session.session_name} - ${session.meeting_name ?: 'Desconocido'} - ${session.year ?: 'Desconocido'}
                 </option>
             </g:each>
         </select>

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title><g:layoutTitle default="F1 App"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <asset:link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+
     <g:layoutHead/>
 
     <style>
@@ -151,7 +154,7 @@
 <!-- FOOTER -->
 <footer>
     <p>&copy; <g:formatDate date="${new Date()}" format="yyyy" /> F1 App by Spartanos. Todos los derechos reservados.</p>
-    <p>Datos obtenidos de la API oficial de Fórmula 1 (o fuente correspondiente)</p>
+    <p>Datos obtenidos de la API OPENF1 y Ergast API</p>
 </footer>
 
 <!-- Spinner -->

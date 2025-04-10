@@ -1,127 +1,70 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page layout="main" %>
+<%@ page title="Radios disponibles" %>
+<%@ layout name="main" %>
 
 <style>
-body {
-    background-color: #262627; /* gris oscuro */
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-.login a {
-    display: inline-block;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0.5rem;
-    background-color: #232121;
-    color: white;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}button[type="submit"] {
-
-}
-.login a:hover {
-    background-color: #4b5563; /* hover:bg-gray-600 */
-}
-.register-container {
-    background-color: #000000;
+.radios-container {
+    max-width: 800px;
+    margin: 3rem auto;
     padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
-    color: white;
+    background: #111;
+    border-radius: 8px;
 }
 
-.register-container h2 {
+h2 {
     text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
+    color: #e10600;
+    margin-bottom: 2rem;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    background-color: #222;
     margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.flash-message {
-    background-color: #facc15;
-    color: black;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-label {
+li strong {
     display: block;
-    margin-bottom: 0.25rem;
-    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #e10600;
 }
 
-input[type="text"],
-input[type="password"] {
+audio {
     width: 100%;
-    padding: 0.5rem 1rem;
-    margin-top: 0.25rem;
-    background-color: #374151;
-    border: 1px solid #4b5563;
-    border-radius: 0.5rem;
-    color: white;
     outline: none;
+    background-color: #111;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus {
-    border-color: #faaf02;
-    box-shadow: 0 0 0 2px #faaf02;
-}
-
-button[type="submit"] {
-    width: 100%;
-    background-color: #faaf02;
-    color: black;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    margin-top: 1rem;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button[type="submit"]:hover {
-    background-color: #9f740a;
+p {
+    text-align: center;
+    color: #ccc;
+    font-size: 1.1rem;
 }
 </style>
 
-<div class="register-container">
-    <h2>Registrar una Cuenta</h2>
+<div class="radios-container">
+    <h2>Radios disponibles</h2>
 
-    <g:if test="${flash.message}">
-        <div class="flash-message">
-            ${flash.message}
-        </div>
+    <g:if test="${radios}">
+        <g:if test="${radios.size() > 0}">
+            <ul>
+                <g:each in="${radios}" var="radio" status="i">
+                    <li>
+                        <strong>${i + 1}. Audio – ${radio.grand_prix_name}</strong>
+                        <audio controls src="${radio.recording_url}" type="audio/mpeg"></audio>
+                    </li>
+                </g:each>
+            </ul>
+        </g:if>
+        <g:else>
+            <p>No se encontraron radios para esa combinación.</p>
+        </g:else>
     </g:if>
-
-    <form action="${createLink(controller: 'login', action: 'registrar')}" method="POST">
-        <div>
-            <label for="username">Usuario</label>
-            <input type="text" name="username" id="username" required />
-        </div>
-
-        <div style="margin-top: 1rem;">
-            <label for="password">Contraseña</label>
-            <input type="password" name="password" id="password" required />
-        </div>
-
-
-        <button type="submit">Registrar</button>
-        <div class="login">
-            <p> </p>
-            <a href="/login/auth">Inicia sessió</a>
-        </div>
-    </form>
 </div>
