@@ -27,7 +27,7 @@
         width: 150px;
         height: 150px;
         margin-right: 2rem;
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: #858280;
         border-radius: 8px;
         display: flex;
         justify-content: center;

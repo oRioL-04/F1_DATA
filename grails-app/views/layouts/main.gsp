@@ -19,7 +19,7 @@
     }
 
     nav {
-        background-color: #faaf02;
+        background-color: #918f89;
         box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         padding: 10px 20px;
         display: flex;
@@ -140,7 +140,9 @@
             <ul class="dropdown-content" id="dropdownMenu">
                 <li><a href="radio/index">Radios</a></li>
                 <li><a href="RaceResults/RaceResults">Race Results</a></li>
+                <li><a href="/calendarioF1/index">Historial de Calendarios</a></li>
                 <li><a href="/login/auth">Cerrar sesión</a></li>
+
             </ul>
         </li>
     </ul>

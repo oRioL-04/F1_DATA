@@ -11,7 +11,7 @@ body {
 }
 
 nav {
-    background-color: #faaf02;
+    background-color: #858280;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     padding: 10px 20px;
     display: flex;
@@ -19,15 +19,7 @@ nav {
     justify-content: space-between;
 }
 
-.logo-container img {
-    width: 80px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
 
-.logo-container img:hover {
-    transform: scale(1.05);
-}
 
 .container {
     max-width: 1000px;
@@ -56,7 +48,7 @@ p.subtitle {
 }
 
 .team-logo-box {
-    background-color: #495057;
+    background-color: #858280;
     width: 100px;
     height: 100px;
     display: flex;
@@ -70,7 +62,7 @@ p.subtitle {
 
 .team-logo-box:hover {
     transform: scale(1.05);
-    background-color: #5a6268;
+    background-color: #858280;
 }
 
 .team-logo {

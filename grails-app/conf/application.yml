@@ -89,6 +89,12 @@ grails:
             access: [ 'ROLE_USER' ]
           - pattern: '/favicon.ico'
             access: [ 'ROLE_USER' ]
+          - pattern: '/calendarioF1/index'
+            access: [ 'ROLE_USER' ]
+          - pattern: '/calendarioF1/result'
+            access: [ 'ROLE_USER' ]
+          - pattern: '/calendarioF1/**'
+            access: [ 'ROLE_USER' ]
           - pattern: '/'
             access: [ 'permitAll' ]
           - pattern: '/login/**'

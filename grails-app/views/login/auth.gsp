@@ -31,7 +31,7 @@ body {
 }
 
 .flash-message {
-    background-color: #facc15; /* bg-yellow-500 */
+    background-color: #7a7974; /* bg-yellow-500 */
     color: black;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
@@ -58,13 +58,13 @@ input[type="password"] {
 
 input[type="text"]:focus,
 input[type="password"]:focus {
-    border-color: #faaf02; /* red-500 */
-    box-shadow: 0 0 0 2px #faaf02;
+    border-color: #858280; /* red-500 */
+    box-shadow: 0 0 0 2px #858280;
 }
 
 button[type="submit"] {
     width: 100%;
-    background-color: #faaf02; /* red-600 */
+    background-color: #858280; /* red-600 */
     color: #000000;
     font-weight: 600;
     padding: 0.5rem 1rem;
@@ -76,7 +76,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #9f740a; /* red-700 */
+    background-color: #858280; /* red-700 */
 }
 
 .register {
