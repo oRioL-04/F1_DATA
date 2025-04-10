@@ -8,17 +8,18 @@
 
 <h1>Selecciona un Gran Premio</h1>
 
-<form method="get" action="${createLink(controller: 'stint', action: 'showStints')}">
-    <label for="gp-select">Gran Premio:</label>
-    <select name="meetingKey" id="gp-select" required>
+<form method="get" action="${createLink(controller: 'stint', action: 'selectSession')}">
+    <label for="meeting-select">Gran Premio:</label>
+    <select name="meetingKey" id="meeting-select" required>
         <option value="">-- Selecciona --</option>
-        <g:each in="${grandPrixList}" var="gp">
-            <option value="${gp.meeting_key}">${gp.meeting_name} (${gp.year})</option>
+        <g:each in="${meetings}" var="m">
+            <option value="${m.meeting_key}">
+                ${m.meeting_official_name} (${m.year})
+            </option>
         </g:each>
     </select>
-    <button type="submit">Ver Stints</button>
+    <button type="submit">Seleccionar</button>
 </form>
 
 </body>
 </html>
-

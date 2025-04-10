@@ -2,95 +2,124 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Stints del Gran Premio</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
     <style>
-    .driver-label {
-        font-weight: bold;
-        margin-top: 10px;
+    .stint-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: calc(100vh - 150px);
+        padding: 20px;
+        margin-top: 20px;
     }
+
+    .stint-container {
+        width: 90%;
+        max-width: 1200px;
+        background: #656060;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin: auto;
+    }
+
+    .stint-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        table-layout: fixed;
+    }
+
+    .stint-table th, .stint-table td {
+        padding: 10px;
+        border: 1px solid #645f5f;
+    }
+
+    .stint-table th {
+        background-color: #615e5e;
+        text-align: center;
+    }
+
+    .stint-title {
+        color: #b3aeae;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .stint-table th:first-child,
+    .stint-table td:first-child {
+        width: 20%;
+        min-width: 100px;
+        text-align: left;
+        padding-left: 15px;
+    }
+
+    .stint-table th:last-child,
+    .stint-table td:last-child {
+        width: 80%;
+    }
+
     .stint-bar {
         display: flex;
-        height: 20px;
-        margin-bottom: 10px;
+        width: 100%;
+        height: 30px;
+        background-color: #ffffff;
+        overflow: hidden;
     }
+
     .stint-segment {
         height: 100%;
-        border-right: 1px solid #ccc;
+        flex-grow: 1;
+        border-right: 1px solid rgba(0,0,0,0.1);
     }
+
+    .soft { background-color: #d32f2f; }
+    .medium { background-color: #fbc02d; }
+    .hard { background-color: #ffffff; border: 1px solid #ccc; }
+    .intermediate { background-color: #388e3c; }
+    .wet { background-color: #1976d2; }
     </style>
 </head>
 <body>
 
-<h1>Stints del ${meetingName}</h1>
+<div class="stint-content">
+    <div class="stint-container">
+        <h1 class="stint-title">
+            STINTS - ${meetingName }
+        </h1>
 
-<g:if test="${noRace}">
-    <p style="color: red;">No hay sesión de carrera para este Gran Premio.</p>
-</g:if>
 
-<div id="chart-container" style="margin-top: 20px;"></div>
 
-<script>
-    const driverMap = ${driverMap ? raw(driverMap as grails.converters.JSON) : '{}'};
-    const meetingKey = ${meetingKey};
-
-    async function loadStints() {
-        try {
-            const res = await fetch("${createLink(controller: 'stint', action: 'loadStints')}?meetingKey=" + meetingKey);
-            if (!res.ok) throw new Error("No se pudo obtener los stints");
-            const stints = await res.json();
-            renderStintChart(stints);
-        } catch (e) {
-            console.error("Error al cargar los stints:", e);
-        }
-    }
-
-    function renderStintChart(stints) {
-        const container = document.getElementById("chart-container");
-        container.innerHTML = "";
-
-        const grouped = {};
-        stints
-            .filter(s => s && s.driver_number && s.compound && s.lap_start != null && s.lap_end != null)
-            .forEach(s => {
-                if (!grouped[s.driver_number]) grouped[s.driver_number] = [];
-                grouped[s.driver_number].push(s);
-            });
-
-        Object.keys(grouped).forEach(driver => {
-            const label = document.createElement("div");
-            label.className = "driver-label";
-            label.textContent = driverMap[driver] || "Piloto " + driver;
-            container.appendChild(label);
-
-            const bar = document.createElement("div");
-            bar.className = "stint-bar";
-
-            grouped[driver]
-                .sort((a, b) => a.lap_start - b.lap_start)
-                .forEach(stint => {
-                    const seg = document.createElement("div");
-                    const length = stint.lap_end - stint.lap_start + 1;
-                    seg.className = "stint-segment";
-                    seg.style.flex = length;
-                    seg.style.backgroundColor = getColor(stint.compound);
-                    bar.appendChild(seg);
-                });
-
-            container.appendChild(bar);
-        });
-    }
-
-    function getColor(compound) {
-        switch (compound.toUpperCase()) {
-            case "SOFT": return "red";
-            case "MEDIUM": return "yellow";
-            case "HARD": return "white";
-            default: return "gray";
-        }
-    }
-
-    loadStints();
-</script>
+        <table class="stint-table">
+            <thead>
+            <tr>
+                <th>Piloto</th>
+                <th>Stints</th>
+            </tr>
+            </thead>
+            <tbody>
+            <g:each var="entry" in="${groupedStints}">
+                <tr>
+                    <td>${driverMap[entry.key]}</td>
+                    <td>
+                        <div class="stint-bar">
+                            <g:set var="totalLaps" value="${entry.value.sum { it.laps }}" />
+                            <g:each var="stint" in="${entry.value}">
+                                <div class="stint-segment ${stint.compound?.toLowerCase() ?: 'hard'}"
+                                     style="flex: ${stint.laps / totalLaps};"
+                                     title="${stint.compound}: Laps ${stint.lap_start} to ${stint.lap_start + stint.laps - 1}"></div>
+                            </g:each>
+                        </div>
+                    </td>
+                </tr>
+            </g:each>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 </body>
 </html>
