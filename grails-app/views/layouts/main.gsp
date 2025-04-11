@@ -138,14 +138,14 @@
         <li class="dropdown">
             <span class="dropdown-icon" onclick="toggleDropdown()">☰</span>
             <ul class="dropdown-content" id="dropdownMenu">
-                <li><a href="radio/index">Radios</a></li>
-                <li><a href="/stint/index">Stints</a></li>
-                <li><a href="race-results">Race Results</a></li>
-                <li><a href="/calendarioF1/index">Historial de Calendarios</a></li>
-                <li><a href="/login/auth">Cerrar sesión</a></li>
-
+                <li><a href="${request.contextPath}/radio/index">Radios</a></li>
+                <li><a href="${request.contextPath}/stint/index">Stints</a></li>
+                <li><a href="${request.contextPath}/race-results">Race Results</a></li>
+                <li><a href="${request.contextPath}/calendarioF1/index">Historial de Calendarios</a></li>
+                <li><a href="${request.contextPath}/login/auth">Cerrar sesión</a></li>
             </ul>
-        </li>
+
+    </li>
     </ul>
 </nav>
 
