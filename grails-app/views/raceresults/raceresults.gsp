@@ -143,58 +143,61 @@
 
     <div class="search-panel">
         <h2>Search Results</h2>
-        <g:form action="showResults">
+        <g:form controller="raceresults" action="showResults" method="GET" onsubmit="return cleanForm()">
             <div class="form-group">
                 <label for="type">Search Type:</label>
                 <select name="type" id="type" onchange="updateFormFields()">
-                    <option value="last">Most Recent Race</option>
-                    <option value="specific">Specific Race</option>
-                    <option value="driver">Driver Results</option>
-                    <option value="position">Finishing Position</option>
+                    <option value="last" ${params.type == 'last' ? 'selected' : ''}>Most Recent Race</option>
+                    <option value="specific" ${params.type == 'specific' ? 'selected' : ''}>Specific Race</option>
+                    <option value="driver" ${params.type == 'driver' ? 'selected' : ''}>Driver Results</option>
+                    <option value="position" ${params.type == 'position' ? 'selected' : ''}>Finishing Position</option>
                 </select>
             </div>
 
+            <!-- Specific Race Fields -->
             <div id="specificFields" style="display:none;">
                 <div class="form-group">
                     <label for="specificYear">Year:</label>
-                    <input type="number" name="year" id="specificYear" min="1950" max="${new Date().getYear() + 1900}"
-                           placeholder="Ej: 2023" required />
+                    <input type="number" name="specificYear" id="specificYear"
+                           min="1950" max="${new Date().getYear() + 1900}"
+                           value="${params.specificYear}" placeholder="Ej: 2023" required />
                 </div>
                 <div class="form-group">
-                    <label for="round">Round:</label>
-                    <input type="number" name="round" id="round" min="1" max="25"
-                           placeholder="Ej: 5" required />
+                    <label for="specificRound">Round:</label>
+                    <input type="number" name="specificRound" id="specificRound"
+                           min="1" max="25"
+                           value="${params.specificRound}" placeholder="Ej: 5" required />
                 </div>
             </div>
 
+            <!-- Driver Fields -->
             <div id="driverFields" style="display:none;">
                 <div class="form-group">
-                    <label for="driverId">Driver ID (e.g., alonso):</label>
+                    <label for="driverId">Driver ID:</label>
                     <input type="text" name="driverId" id="driverId"
-                           placeholder="Ej: alonso, hamilton" required />
+                           value="${params.driverId}" placeholder="Ej: alonso" required />
                 </div>
                 <div class="form-group">
-                    <label for="specificYear">Year (optional):</label>
-                    <input type="number" name="year" id="driverYear" min="1950"
-                           max="${new Date().getYear() + 1900}" placeholder="Ej: 2023" />
-                </div>
-                <div class="form-group">
-                    <label for="constructorId">Constructor ID (optional, e.g., renault):</label>
-                    <input type="text" name="constructorId" id="constructorId"
-                           placeholder="Ej: mercedes, ferrari" />
+                    <label for="driverYear">Year (optional):</label>
+                    <input type="number" name="driverYear" id="driverYear"
+                           min="1950" max="${new Date().getYear() + 1900}"
+                           value="${params.driverYear}" placeholder="Ej: 2023" />
                 </div>
             </div>
 
+            <!-- Position Fields -->
             <div id="positionFields" style="display:none;">
                 <div class="form-group">
-                    <label for="specificYear">Year:</label>
-                    <input type="number" name="year" id="positionYear" min="1950"
-                           max="${new Date().getYear() + 1900}" placeholder="Ej: 2023" required />
+                    <label for="positionYear">Year:</label>
+                    <input type="number" name="positionYear" id="positionYear"
+                           min="1950" max="${new Date().getYear() + 1900}"
+                           value="${params.positionYear}" placeholder="Ej: 2023" required />
                 </div>
                 <div class="form-group">
-                    <label for="position">Position:</label>
-                    <input type="number" name="position" id="position" min="1" max="30"
-                           placeholder="Ej: 1 para ganadores" required/>
+                    <label for="finishPosition">Position:</label>
+                    <input type="number" name="finishPosition" id="finishPosition"
+                           min="1" max="30"
+                           value="${params.finishPosition}" placeholder="Ej: 1" required/>
                 </div>
             </div>
 
@@ -277,29 +280,63 @@
         document.getElementById('type').value = type;
         updateFormFields();
 
-        // Set previous values if they exist
-        <g:if test="${params.year}">
-        if(type === 'specific'){
-            document.getElementById('specificYear').value = "${params.year}";
-        } else if(type === 'driver'){
-            document.getElementById('driverYear').value = "${params.year}";
-        } else if(type === 'position'){
-            document.getElementById('positionYear').value = "${params.year}";
-        }
+        // Asigna valores usando los nuevos nombres de parámetros
+        <g:if test="${params.specificYear}">
+        document.getElementById('specificYear').value = "${params.specificYear}";
         </g:if>
-        <g:if test="${params.round}">
-        document.getElementById('round').value = "${params.round}";
+        <g:if test="${params.specificRound}">
+        document.getElementById('specificRound').value = "${params.specificRound}";
         </g:if>
         <g:if test="${params.driverId}">
         document.getElementById('driverId').value = "${params.driverId}";
         </g:if>
-        <g:if test="${params.constructorId}">
-        document.getElementById('constructorId').value = "${params.constructorId}";
+        <g:if test="${params.driverYear}">
+        document.getElementById('driverYear').value = "${params.driverYear}";
         </g:if>
-        <g:if test="${params.position}">
-        document.getElementById('position').value = "${params.position}";
+        <g:if test="${params.positionYear}">
+        document.getElementById('positionYear').value = "${params.positionYear}";
+        </g:if>
+        <g:if test="${params.finishPosition}">
+        document.getElementById('finishPosition').value = "${params.finishPosition}";
         </g:if>
     });
+
+    function cleanForm() {
+        const type = document.getElementById("type").value;
+        const form = document.forms[0];
+
+        const allFields = [
+            "specificYear", "round",
+            "driverId", "driverYear", "constructorId",
+            "position", "positionYear"
+        ];
+
+        const activeFieldsByType = {
+            specific: ["specificYear", "round"],
+            driver: ["driverId", "driverYear", "constructorId"],
+            position: ["position", "positionYear"]
+        };
+
+        const activeFields = activeFieldsByType[type];
+
+        allFields.forEach(name => {
+            const input = form.querySelector(`[id="${name}"]`);
+            if (input) {
+                if (activeFields.includes(name)) {
+                    input.setAttribute("name", name);
+                    input.disabled = false;
+                    input.style.display = "";
+                } else {
+                    input.removeAttribute("name");
+                    input.disabled = true;
+                    input.style.display = "none";
+                }
+            }
+        });
+
+        return true;
+    }
+
 </script>
 </body>
 </html>

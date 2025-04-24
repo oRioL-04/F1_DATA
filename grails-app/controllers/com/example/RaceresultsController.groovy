@@ -21,23 +21,20 @@ class RaceresultsController {
     private String buildApiUrl(params) {
         String baseUrl = "http://ergast.com/api/f1"
 
-        if (params.type == 'last') {
-            return "${baseUrl}/current/last/results.json"
-        }
-        else if (params.type == 'specific') {
-            return "${baseUrl}/${params.year}/${params.round}/results.json"
-        }
-        else if (params.type == 'driver') {
-            if (params.constructorId) {
-                return "${baseUrl}/drivers/${params.driverId}/constructors/${params.constructorId}/results.json"
-            }
-            return "${baseUrl}/${params.year}/drivers/${params.driverId}/results.json"
-        }
-        else if (params.type == 'position') {
-            return "${baseUrl}/${params.year}/results/${params.position}.json"
-        }
-        else {
-            return "${baseUrl}/current/last/results.json"
+        switch(params.type) {
+            case 'last':
+                return "${baseUrl}/current/last/results.json"
+            case 'specific':
+                return "${baseUrl}/${params.specificYear}/${params.specificRound}/results.json"
+            case 'driver':
+                if (params.constructorId) {
+                    return "${baseUrl}/drivers/${params.driverId}/constructors/${params.constructorId}/results.json"
+                }
+                return "${params.driverYear ?: 'current'}/drivers/${params.driverId}/results.json"
+            case 'position':
+                return "${baseUrl}/${params.positionYear}/results/${params.finishPosition}.json"
+            default:
+                return "${baseUrl}/current/last/results.json"
         }
     }
 
