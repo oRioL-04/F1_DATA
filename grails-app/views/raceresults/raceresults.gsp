@@ -290,7 +290,7 @@
             const constructor = document.getElementById('constructorId').value.trim();
 
             if ((year && constructor) || (!year && !constructor)) {
-                alert("Por favor, completa solo uno de los campos: Año o Constructor.");
+                alert("Error: You must specify either Year or Constructor, not both.");
                 return false;
             }
         }
