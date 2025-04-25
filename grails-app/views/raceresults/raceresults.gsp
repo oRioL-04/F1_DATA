@@ -156,11 +156,11 @@
 
             <!-- Specific Race Fields -->
             <div id="specificFields" class="form-group" style="display:none;">
-                <label for="specificYear">Year:</label>
+                <label for="specificYear">Year (required):</label>
                 <input type="number" id="specificYear"
                        min="1950" max="${new Date().getYear() + 1900}"
                        value="${params.specificYear}" placeholder="Ej: 2023" required />
-                <label for="specificRound">Round:</label>
+                <label for="specificRound">Round (required):</label>
                 <input type="number" id="specificRound"
                        min="1" max="25"
                        value="${params.specificRound}" placeholder="Ej: 5" required />
@@ -168,27 +168,27 @@
 
             <!-- Driver Fields -->
             <div id="driverFields" class="form-group" style="display:none;">
-                <label for="driverId"><strong>Driver ID (required):</strong></label>
+                <label for="driverId">Driver ID (required):</label>
                 <input type="text" id="driverId"
-                       value="${params.driverId}" placeholder="E.g.: alonso, hamilton" required />
+                       value="${params.driverId}" placeholder="Ej: alonso" required />
 
-                <label for="driverYear"><strong>Year (required if constructor is not specified):</strong></label>
+                <label for="driverYear">Year (required if constructor is not specified):</label>
                 <input type="number" id="driverYear"
                        min="1950" max="${new Date().getYear() + 1900}"
-                       value="${params.driverYear}" placeholder="E.g.: 2023" />
+                       value="${params.driverYear}" placeholder="Ej: 2023" />
 
-                <label for="constructorId"><strong>Constructor (required if year is not specified):</strong></label>
-                <input type="text" id="constructorId"
-                       value="${params.constructorId}" placeholder="E.g.: mercedes, ferrari" />
+                <label for="constructorId">Constructor ID (required if year is not specified):</label>
+                <input type="text" name="constructorId" id="constructorId"
+                       placeholder="Ej: mercedes, ferrari" />
             </div>
 
             <!-- Position Fields -->
             <div id="positionFields" class="form-group" style="display:none;">
-                <label for="positionYear">Year:</label>
+                <label for="positionYear">Year (required):</label>
                 <input type="number" id="positionYear"
                        min="1950" max="${new Date().getYear() + 1900}"
                        value="${params.positionYear}" placeholder="Ej: 2023" required />
-                <label for="finishPosition">Position:</label>
+                <label for="finishPosition">Position (required):</label>
                 <input type="number" id="finishPosition"
                        min="1" max="30"
                        value="${params.finishPosition}" placeholder="Ej: 1" required />
