@@ -168,16 +168,18 @@
 
             <!-- Driver Fields -->
             <div id="driverFields" class="form-group" style="display:none;">
-                <label for="driverId">Driver ID:</label>
+                <label for="driverId"><strong>Driver ID (required):</strong></label>
                 <input type="text" id="driverId"
-                       value="${params.driverId}" placeholder="Ej: alonso" required />
-                <label for="driverYear">Year (optional):</label>
+                       value="${params.driverId}" placeholder="E.g.: alonso, hamilton" required />
+
+                <label for="driverYear"><strong>Year (required if constructor is not specified):</strong></label>
                 <input type="number" id="driverYear"
                        min="1950" max="${new Date().getYear() + 1900}"
-                       value="${params.driverYear}" placeholder="Ej: 2023" />
-                <label for="constructorId">Constructor ID (optional, e.g., renault):</label>
-                <input type="text" name="constructorId" id="constructorId"
-                       placeholder="Ej: mercedes, ferrari" />
+                       value="${params.driverYear}" placeholder="E.g.: 2023" />
+
+                <label for="constructorId"><strong>Constructor (required if year is not specified):</strong></label>
+                <input type="text" id="constructorId"
+                       value="${params.constructorId}" placeholder="E.g.: mercedes, ferrari" />
             </div>
 
             <!-- Position Fields -->
@@ -281,9 +283,21 @@
     }
 
     function cleanForm() {
-        // names and required are managed in updateFormFields
+        const type = document.getElementById('type').value;
+
+        if (type === 'driver') {
+            const year = document.getElementById('driverYear').value.trim();
+            const constructor = document.getElementById('constructorId').value.trim();
+
+            if ((year && constructor) || (!year && !constructor)) {
+                alert("Por favor, completa solo uno de los campos: Año o Constructor.");
+                return false;
+            }
+        }
+
         return true;
     }
+
 
     document.addEventListener('DOMContentLoaded', () => {
         const type = "${params.type ?: 'last'}";
