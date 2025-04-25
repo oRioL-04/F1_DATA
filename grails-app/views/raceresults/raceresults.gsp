@@ -146,7 +146,7 @@
         <g:form controller="raceresults" action="showResults" method="GET" onsubmit="return cleanForm()">
             <div class="form-group">
                 <label for="type">Search Type:</label>
-                <select name="type" id="type" onchange="updateFormFields()">
+                <select name="type" id="type" onchange="updateFormFields()" required>
                     <option value="last" ${params.type == 'last' ? 'selected' : ''}>Most Recent Race</option>
                     <option value="specific" ${params.type == 'specific' ? 'selected' : ''}>Specific Race</option>
                     <option value="driver" ${params.type == 'driver' ? 'selected' : ''}>Driver Results</option>
@@ -155,188 +155,138 @@
             </div>
 
             <!-- Specific Race Fields -->
-            <div id="specificFields" style="display:none;">
-                <div class="form-group">
-                    <label for="specificYear">Year:</label>
-                    <input type="number" name="specificYear" id="specificYear"
-                           min="1950" max="${new Date().getYear() + 1900}"
-                           value="${params.specificYear}" placeholder="Ej: 2023" required />
-                </div>
-                <div class="form-group">
-                    <label for="specificRound">Round:</label>
-                    <input type="number" name="specificRound" id="specificRound"
-                           min="1" max="25"
-                           value="${params.specificRound}" placeholder="Ej: 5" required />
-                </div>
+            <div id="specificFields" class="form-group" style="display:none;">
+                <label for="specificYear">Year:</label>
+                <input type="number" id="specificYear"
+                       min="1950" max="${new Date().getYear() + 1900}"
+                       value="${params.specificYear}" placeholder="Ej: 2023" required />
+                <label for="specificRound">Round:</label>
+                <input type="number" id="specificRound"
+                       min="1" max="25"
+                       value="${params.specificRound}" placeholder="Ej: 5" required />
             </div>
 
             <!-- Driver Fields -->
-            <div id="driverFields" style="display:none;">
-                <div class="form-group">
-                    <label for="driverId">Driver ID:</label>
-                    <input type="text" name="driverId" id="driverId"
-                           value="${params.driverId}" placeholder="Ej: alonso" required />
-                </div>
-                <div class="form-group">
-                    <label for="driverYear">Year (optional):</label>
-                    <input type="number" name="driverYear" id="driverYear"
-                           min="1950" max="${new Date().getYear() + 1900}"
-                           value="${params.driverYear}" placeholder="Ej: 2023" />
-                </div>
+            <div id="driverFields" class="form-group" style="display:none;">
+                <label for="driverId">Driver ID:</label>
+                <input type="text" id="driverId"
+                       value="${params.driverId}" placeholder="Ej: alonso" required />
+                <label for="driverYear">Year (optional):</label>
+                <input type="number" id="driverYear"
+                       min="1950" max="${new Date().getYear() + 1900}"
+                       value="${params.driverYear}" placeholder="Ej: 2023" />
             </div>
 
             <!-- Position Fields -->
-            <div id="positionFields" style="display:none;">
-                <div class="form-group">
-                    <label for="positionYear">Year:</label>
-                    <input type="number" name="positionYear" id="positionYear"
-                           min="1950" max="${new Date().getYear() + 1900}"
-                           value="${params.positionYear}" placeholder="Ej: 2023" required />
-                </div>
-                <div class="form-group">
-                    <label for="finishPosition">Position:</label>
-                    <input type="number" name="finishPosition" id="finishPosition"
-                           min="1" max="30"
-                           value="${params.finishPosition}" placeholder="Ej: 1" required/>
-                </div>
+            <div id="positionFields" class="form-group" style="display:none;">
+                <label for="positionYear">Year:</label>
+                <input type="number" id="positionYear"
+                       min="1950" max="${new Date().getYear() + 1900}"
+                       value="${params.positionYear}" placeholder="Ej: 2023" required />
+                <label for="finishPosition">Position:</label>
+                <input type="number" id="finishPosition"
+                       min="1" max="30"
+                       value="${params.finishPosition}" placeholder="Ej: 1" required />
             </div>
 
             <button type="submit" class="btn">Search</button>
-
-            <g:if test="${flash.error}">
-                <div class="error">${flash.error}</div>
-            </g:if>
-
+            <g:if test="${flash.error}"><div class="error">${flash.error}</div></g:if>
         </g:form>
     </div>
+</div>
+<div class="results-panel">
+    <g:if test="${raceResults}">
+        <div class="race-info">
+            <h2>${raceResults.raceName}</h2>
+            <p><span class="label">Season:</span> ${raceResults.season}</p>
+            <p><span class="label">Round:</span> ${raceResults.round}</p>
+            <p><span class="label">Date:</span> ${raceResults.date}</p>
+            <p><span class="label">Circuit:</span> ${raceResults.Circuit.circuitName} (${raceResults.Circuit.Location.locality}, ${raceResults.Circuit.Location.country})</p>
+        </div>
 
-    <div class="results-panel">
-        <g:if test="${raceResults}">
-            <div class="race-info">
-                <h2>${raceResults.raceName}</h2>
-                <p><span class="label">Season:</span> ${raceResults.season}</p>
-                <p><span class="label">Round:</span> ${raceResults.round}</p>
-                <p><span class="label">Date:</span> ${raceResults.date}</p>
-                <p><span class="label">Circuit:</span> ${raceResults.Circuit.circuitName} (${raceResults.Circuit.Location.locality}, ${raceResults.Circuit.Location.country})</p>
-            </div>
-
-            <table>
-                <thead>
-                <tr>
-                    <th>Pos</th>
-                    <th>Driver</th>
-                    <th>Constructor</th>
-                    <th>Grid</th>
-                    <th>Laps</th>
-                    <th>Status</th>
-                    <th>Time</th>
-                    <th>Points</th>
+        <table>
+            <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Driver</th>
+                <th>Constructor</th>
+                <th>Grid</th>
+                <th>Laps</th>
+                <th>Status</th>
+                <th>Time</th>
+                <th>Points</th>
+            </tr>
+            </thead>
+            <tbody>
+            <g:each in="${raceResults.Results}" var="result">
+                <tr class="position-${result.position}">
+                    <td>${result.positionText}</td>
+                    <td>${result.Driver.givenName} ${result.Driver.familyName}</td>
+                    <td>${result.Constructor.name}</td>
+                    <td>${result.grid == '0' ? 'Pit Lane' : result.grid}</td>
+                    <td>${result.laps}</td>
+                    <td>${result.status}</td>
+                    <td>${result.Time?.time ?: '-'}</td>
+                    <td>${result.points}</td>
                 </tr>
-                </thead>
-                <tbody>
-                <g:each in="${raceResults.Results}" var="result">
-                    <tr class="position-${result.position}">
-                        <td>${result.positionText}</td>
-                        <td>${result.Driver.givenName} ${result.Driver.familyName}</td>
-                        <td>${result.Constructor.name}</td>
-                        <td>${result.grid == '0' ? 'Pit Lane' : result.grid}</td>
-                        <td>${result.laps}</td>
-                        <td>${result.status}</td>
-                        <td>${result.Time?.time ?: '-'}</td>
-                        <td>${result.points}</td>
-                    </tr>
-                </g:each>
-                </tbody>
-            </table>
-        </g:if>
-        <g:else>
-            <p class="error">No race results found for the specified criteria.</p>
-        </g:else>
-    </div>
+            </g:each>
+            </tbody>
+        </table>
+    </g:if>
+    <g:else>
+        <p class="error">No race results found for the specified criteria.</p>
+    </g:else>
 </div>
 
 <script>
+    const fieldsByType = {
+        last: [],
+        specific: ['specificYear','specificRound'],
+        driver: ['driverId','driverYear'],
+        position: ['positionYear','finishPosition']
+    };
+    const nameMapping = {
+        specificYear: 'year',
+        specificRound: 'round',
+        driverId: 'driverId',
+        driverYear: 'year',
+        positionYear: 'year',
+        finishPosition: 'position'
+    };
+
     function updateFormFields() {
         const type = document.getElementById('type').value;
-
-        // Hide all field groups first
-        document.getElementById('specificFields').style.display = 'none';
-        document.getElementById('driverFields').style.display = 'none';
-        document.getElementById('positionFields').style.display = 'none';
-
-        // Show the relevant field group
-        if (type === 'specific') {
-            document.getElementById('specificFields').style.display = 'block';
-        } else if (type === 'driver') {
-            document.getElementById('driverFields').style.display = 'block';
-        } else if (type === 'position') {
-            document.getElementById('positionFields').style.display = 'block';
-        }
-    }
-
-    // Initialize form fields based on current selection
-    document.addEventListener('DOMContentLoaded', function() {
-        const type = "${params.type ?: 'last'}";
-        document.getElementById('type').value = type;
-        updateFormFields();
-
-        // Asigna valores usando los nuevos nombres de parámetros
-        <g:if test="${params.specificYear}">
-        document.getElementById('specificYear').value = "${params.specificYear}";
-        </g:if>
-        <g:if test="${params.specificRound}">
-        document.getElementById('specificRound').value = "${params.specificRound}";
-        </g:if>
-        <g:if test="${params.driverId}">
-        document.getElementById('driverId').value = "${params.driverId}";
-        </g:if>
-        <g:if test="${params.driverYear}">
-        document.getElementById('driverYear').value = "${params.driverYear}";
-        </g:if>
-        <g:if test="${params.positionYear}">
-        document.getElementById('positionYear').value = "${params.positionYear}";
-        </g:if>
-        <g:if test="${params.finishPosition}">
-        document.getElementById('finishPosition').value = "${params.finishPosition}";
-        </g:if>
-    });
-
-    function cleanForm() {
-        const type = document.getElementById("type").value;
-        const form = document.forms[0];
-
-        const allFields = [
-            "specificYear", "round",
-            "driverId", "driverYear", "constructorId",
-            "position", "positionYear"
-        ];
-
-        const activeFieldsByType = {
-            specific: ["specificYear", "round"],
-            driver: ["driverId", "driverYear", "constructorId"],
-            position: ["position", "positionYear"]
-        };
-
-        const activeFields = activeFieldsByType[type];
-
-        allFields.forEach(name => {
-            const input = form.querySelector(`[id="${name}"]`);
-            if (input) {
-                if (activeFields.includes(name)) {
-                    input.setAttribute("name", name);
-                    input.disabled = false;
-                    input.style.display = "";
-                } else {
-                    input.removeAttribute("name");
-                    input.disabled = true;
-                    input.style.display = "none";
+        Object.values(fieldsByType).flat().forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.parentElement.style.display = 'none';
+                el.removeAttribute('name');
+                el.removeAttribute('required');
+            }
+        });
+        fieldsByType[type].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.parentElement.style.display = 'block';
+                el.setAttribute('name', nameMapping[id]);
+                // re-add required if originally required
+                if (['specificYear','specificRound','driverId','positionYear','finishPosition'].includes(id)) {
+                    el.setAttribute('required', 'required');
                 }
             }
         });
+    }
 
+    function cleanForm() {
+        // names and required are managed in updateFormFields
         return true;
     }
 
+    document.addEventListener('DOMContentLoaded', () => {
+        const type = "${params.type ?: 'last'}";
+        document.getElementById('type').value = type;
+        updateFormFields();
+    });
 </script>
 </body>
 </html>
