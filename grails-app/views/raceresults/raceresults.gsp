@@ -175,6 +175,9 @@
                 <input type="number" id="driverYear"
                        min="1950" max="${new Date().getYear() + 1900}"
                        value="${params.driverYear}" placeholder="Ej: 2023" />
+                <label for="constructorId">Constructor ID (optional, e.g., renault):</label>
+                <input type="text" name="constructorId" id="constructorId"
+                       placeholder="Ej: mercedes, ferrari" />
             </div>
 
             <!-- Position Fields -->
