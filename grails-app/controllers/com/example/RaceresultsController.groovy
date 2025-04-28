@@ -3,16 +3,17 @@ package com.example
 class RaceresultsController {
 
     def index() {
-        // Default action will show the most recent race results
         redirect(action: 'showResults', params: [type: 'last'])
     }
 
     def showResults() {
+        def grandPrixList = (1..23) // Asumiendo máximo 23 rondas (puedes ajustar)
         def apiUrl = buildApiUrl(params)
-        def raceResults = fetchRaceResults(apiUrl)
+        def raceResults = apiUrl ? fetchRaceResults(apiUrl) : null
 
         render(view: 'raceresults', model: [
                 raceResults: raceResults,
+                grandPrixList: grandPrixList,
                 params: params,
                 apiUrl: apiUrl
         ])
@@ -21,18 +22,19 @@ class RaceresultsController {
     private String buildApiUrl(params) {
         String baseUrl = "http://ergast.com/api/f1"
 
-        switch(params.type) {
+        switch (params.type) {
             case 'last':
                 return "${baseUrl}/current/last/results.json"
             case 'specific':
-                return "${baseUrl}/${params.specificYear}/${params.specificRound}/results.json"
-            case 'driver':
-                if (params.constructorId) {
-                    return "${baseUrl}/drivers/${params.driverId}/constructors/${params.constructorId}/results.json"
+                if (!params.specificYear || !params.roundNumber) {
+                    return null
                 }
-                return "${params.driverYear ?: 'current'}/drivers/${params.driverId}/results.json"
-            case 'position':
-                return "${baseUrl}/${params.positionYear}/results/${params.finishPosition}.json"
+                return "${baseUrl}/${params.specificYear}/${params.roundNumber}/results.json"
+            case 'driver':
+                if (!params.driverId || !params.driverYear) {
+                    return null
+                }
+                return "${baseUrl}/${params.driverYear}/drivers/${params.driverId}/results.json"
             default:
                 return "${baseUrl}/current/last/results.json"
         }
@@ -45,7 +47,7 @@ class RaceresultsController {
 
             if (connection.responseCode == 200) {
                 def json = new groovy.json.JsonSlurper().parse(connection.inputStream)
-                return json.MRData.RaceTable.Races ? json.MRData.RaceTable.Races[0] : null
+                return json.MRData.RaceTable
             } else {
                 return null
             }
